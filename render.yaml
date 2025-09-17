@@ -11,10 +11,3 @@ services:
       - key: RUN_ON_START
         value: "true"
     healthCheckPath: /
-
-  - type: cron
-    name: ecothermas-scraper-cron
-    env: node
-    schedule: "*/5 * * * *"  # A cada 5 minutos
-    buildCommand: npm install
-    startCommand: curl -X POST https://ecothermas-scraper.onrender.com/scrape
