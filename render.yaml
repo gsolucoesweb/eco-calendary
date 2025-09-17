@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: ecothermas-scraper
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: RUN_ON_START
+        value: "true"
+    healthCheckPath: /
+
+  - type: cron
+    name: ecothermas-scraper-cron
+    env: node
+    plan: free
+    schedule: "*/5 * * * *"  # A cada 5 minutos
+    buildCommand: npm install
+    startCommand: curl -X POST https://ecothermas-scraper.onrender.com/scrape
